@@ -143,3 +143,139 @@ header {
     justify-content: center;
     padding: 0 4px;
 }
+/* ============ CONTAINER ============ */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+/* ============ CATEGORIA PILLS ============ */
+.pills-container {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 24px 32px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pill {
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--cor-cinza-claro);
+    background: var(--cor-branco);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: var(--cor-preto);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition);
+}
+
+.pill:hover { border-color: var(--cor-neon); }
+
+.pill.active {
+    background: var(--cor-preto);
+    color: var(--cor-branco);
+    border-color: var(--cor-preto);
+}
+
+/* ============ FILTROS ============ */
+.filters-bar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 20px 0 8px;
+    flex-wrap: wrap;
+}
+
+.filter-dropdown { position: relative; }
+
+.filter-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--cor-cinza-claro);
+    background: var(--cor-branco);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--cor-preto);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.filter-btn:hover { border-color: var(--cor-neon); }
+
+.filter-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--cor-cinza-medio);
+    fill: none;
+    stroke-width: 2;
+}
+
+.filter-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 6px;
+    background: var(--cor-branco);
+    border: 1px solid var(--cor-cinza-claro);
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    z-index: 80;
+    min-width: 180px;
+    padding: 8px 0;
+    display: none;
+}
+
+.filter-menu.open { display: block; }
+
+.filter-option {
+    padding: 8px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-option:hover {
+    background: var(--cor-cinza-clarissimo);
+    color: var(--cor-neon);
+}
+
+.filter-option.selected {
+    font-weight: 600;
+    color: var(--cor-neon);
+}
+
+/* ============ SECTION TITLE ============ */
+.section-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 32px 0 20px;
+}
+
+/* ============ GRID DE PRODUTOS ============ */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding-bottom: 48px;
+}
+
+/* ============ NO RESULTS ============ */
+.no-results {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--cor-cinza-medio);
+    font-size: 16px;
+}
