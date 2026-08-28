@@ -279,3 +279,185 @@ header {
     color: var(--cor-cinza-medio);
     font-size: 16px;
 }
+
+/* ============ CARD DE PRODUTO ============ */
+.product-card {
+    border-radius: var(--radius-card);
+    background: var(--cor-branco);
+    border: 1px solid var(--cor-cinza-claro);
+    overflow: hidden;
+    transition: var(--transition);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    border: 2px solid var(--cor-neon);
+    box-shadow: var(--glow-neon);
+    transform: translateY(-2px);
+}
+
+.product-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--cor-cinza-clarissimo);
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+}
+
+.product-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.badge-esgotado {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--cor-cinza-escuro);
+    color: var(--cor-branco);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-desconto {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--cor-vermelho);
+    color: var(--cor-branco);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.quick-add-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--cor-preto);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.product-card:hover .quick-add-btn { opacity: 1; }
+
+.quick-add-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--cor-branco);
+    fill: none;
+    stroke-width: 1.5;
+}
+
+.quick-add-btn:hover { background: var(--cor-neon); }
+
+.quick-add-btn:disabled {
+    background: var(--cor-cinza-claro);
+    cursor: not-allowed;
+}
+
+.quick-add-btn:disabled svg { stroke: var(--cor-cinza-medio); }
+
+.product-info {
+    padding: 12px 12px 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.product-marca {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--cor-cinza-medio);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.product-nome {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--cor-preto);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.product-descricao {
+    font-size: 13px;
+    color: var(--cor-cinza-escuro);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 8px;
+}
+
+.star { width: 14px; height: 14px; }
+.star.filled { color: var(--cor-ouro); }
+.star.empty { color: var(--cor-cinza-claro); }
+
+.review-count {
+    font-size: 12px;
+    color: var(--cor-cinza-medio);
+    font-weight: 400;
+    margin-left: 6px;
+}
+
+.product-specs-mini {
+    font-size: 11px;
+    color: var(--cor-cinza-medio);
+    margin-bottom: 8px;
+}
+
+.product-preco-container { margin-top: auto; }
+
+.product-preco {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--cor-preto);
+}
+
+.product-preco-original {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--cor-cinza-medio);
+    text-decoration: line-through;
+    margin-right: 6px;
+}
+
+.product-preco-promo {
+    color: var(--cor-vermelho);
+    font-weight: 700;
+    font-size: 18px;
+}
