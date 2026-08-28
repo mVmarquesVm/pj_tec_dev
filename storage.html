@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque</title>
+    <link rel="stylesheet" href="./storage_style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Cadastro de Estoque</h1>
+    <p class="sub">Adicione novos itens ao catálogo de tecnologia integrado.</p>
+
+    <!-- Formulário com IDs mapeados para o JavaScript -->
+    <form id="formEstoque">
+        <div class="form-group">
+            <label for="inputNome">Nome do Produto</label>
+            <input type="text" id="inputNome" placeholder="Ex: Placa de Vídeo RTX 5090" required>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDesc">Descrição Comercial</label>
+            <textarea id="inputDesc" placeholder="Descreva os principais detalhes do produto..." required></textarea>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="inputMarca">Marca</label>
+                <input type="text" id="inputMarca" placeholder="Ex: ASUS, NVIDIA, AMD" required>
+            </div>
+            <div class="form-group">
+                <label for="inputCategoria">Categoria</label>
+                <select id="inputCategoria" required>
+                    <option value="" disabled selected>Selecione...</option>
+                    <option value="Processadores">Processadores</option>
+                    <option value="Memória RAM">Memória RAM</option>
+                    <option value="Placas-Mãe">Placas-Mãe</option>
+                    <option value="Placas de Vídeo">Placas de Vídeo</option>
+                    <option value="Armazenamento">Armazenamento</option>
+                    <option value="Fontes">Fontes</option>
+                    <option value="Coolers">Coolers</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="inputPreco">Preço (R$)</label>
+                <input type="number" id="inputPreco" step="0.01" min="0.01" placeholder="0.00" required>
+            </div>
+            <div class="form-group">
+                <label for="inputEstoque">Quantidade em Estoque</label>
+                <input type="number" id="inputEstoque" min="0" placeholder="0" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="inputDesconto">Desconto (%)</label>
+                <input type="number" id="inputDesconto" min="0" max="100" value="0">
+            </div>
+            <div class="form-group">
+                <label for="inputImagem">URL da Imagem (Opcional)</label>
+                <input type="text" id="inputImagem" placeholder="https://exemplo.com">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputSpecs">Especificações Técnicas</label>
+            <input type="text" id="inputSpecs" placeholder="Ex: 16GB GDDR7, Ray Tracing, DLSS 4.0">
+        </div>
+
+        <button type="submit">Salvar no Catálogo</button>
+    </form>
+
+    <a href="index.html" class="nav-link">← Voltar para a Loja Principal</a>
+</div>
+
+<!-- Vinculando o arquivo javascript do estoque -->
+<script src="estoque.js"></script>
+</body>
+</html>

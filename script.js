@@ -5,7 +5,13 @@
 //    specs, status (ativo/inativo), estoque, desconto, avaliação
 //  - Preço > 0
 // ============================================================
-const produtos = [
+// ============================================================
+//  ARRAY DE PRODUTOS — Catálogo de Tecnologia
+// ============================================================
+const CHAVE_BANCO = 'catalogo_produtos';
+
+// 1. Esta é a sua lista oficial escrita no arquivo (Mantenha sempre atualizada aqui)
+const produtosDoCodigo = [
     {
         id: 1,
         nome: "Processador AMD Ryzen 7 7800X3D",
@@ -13,7 +19,7 @@ const produtos = [
         preco: 2499.00,
         categoria: "Processadores",
         marca: "AMD",
-        imagens: ["https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600"],
+        imagens: ["https://images.tcdn.com.br/img/img_prod/591628/processador_amd_ryzen_7_7800x3d_socket_am5_4_2ghz_5_0ghz_cache_104mb_100_100000910wof_36063_1_648e3ed88573842a8c3470a5bb960f44.jpg"],
         specs: "8 núcleos / 16 threads, 4.6GHz Boost, 96MB Cache, AM5, 120W",
         status: "ativo",
         estoque: 18,
@@ -28,7 +34,7 @@ const produtos = [
         preco: 2299.00,
         categoria: "Processadores",
         marca: "Intel",
-        imagens: ["https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=600"],
+        imagens: ["https://cdn.awsli.com.br/2906/2906671/produto/383735464/244b7dfdd9a7b8bfd1aa03865b0938df-wogzqc2o1w.jpg"],
         specs: "20 núcleos / 28 threads, 5.6GHz Turbo, LGA 1700, 125W",
         status: "ativo",
         estoque: 14,
@@ -40,10 +46,10 @@ const produtos = [
         id: 3,
         nome: "Memória RAM Corsair Vengeance RGB 32GB (2x16GB) DDR5 6000MHz",
         descricao: "Kit dual-channel DDR5 com iluminação RGB, alta velocidade e latência CL30 otimizada para plataformas AMD e Intel.",
-        preco: 899.00,
+        preco: 3000.00,
         categoria: "Memória RAM",
         marca: "Corsair",
-        imagens: ["https://images.unsplash.com/photo-1562976540-1502c2145186?w=600"],
+        imagens: ["https://assets.corsair.com/image/upload/c_pad,q_85,h_1100,w_1100,f_auto/products/Memory/vengeance-rgb-ddr5-blk-config/Gallery/2up/VENGEANCE_RGB_DDR5_BLK_01.webp"],
         specs: "32GB (2x16GB), DDR5-6000, CL30, RGB, XMP 3.0",
         status: "ativo",
         estoque: 42,
@@ -55,10 +61,10 @@ const produtos = [
         id: 4,
         nome: "Memória RAM Kingston Fury Beast 16GB (2x8GB) DDR4 3200MHz",
         descricao: "Memória DDR4 confiável e de alto desempenho, ideal para upgrades em sistemas mid-range e high-end.",
-        preco: 349.00,
+        preco: 1080.00,
         categoria: "Memória RAM",
         marca: "Kingston",
-        imagens: ["https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?w=600"],
+        imagens: ["https://images.kabum.com.br/produtos/fotos/172366/memoria-kingston-fury-beast-16gb-3200mhz-ddr4-cl16-preto-kf432c16bb1-16_1626271100_gg.jpg"],
         specs: "16GB (2x8GB), DDR4-3200, CL16, Preto",
         status: "ativo",
         estoque: 65,
@@ -73,7 +79,7 @@ const produtos = [
         preco: 1899.00,
         categoria: "Placas-Mãe",
         marca: "ASUS",
-        imagens: ["https://images.unsplash.com/photo-1518770660439-4636190af475?w=600"],
+        imagens: ["https://images.kabum.com.br/produtos/fotos/sync_mirakl/409931/xlarge/Placa-M-e-Asus-ROG-B650-A-Gaming-AMD-AM5-ATX-DDR5-Wi-Fi_1749734684.jpg"],
         specs: "AM5, DDR5, PCIe 5.0, Wi-Fi 6E, 4x M.2, ATX",
         status: "ativo",
         estoque: 11,
@@ -88,7 +94,7 @@ const produtos = [
         preco: 1399.00,
         categoria: "Placas-Mãe",
         marca: "MSI",
-        imagens: ["https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600"],
+        imagens: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1B5pEzkBjtQR3Osn5kCjW5eWytwYAWiJCcjMNoysSbpj4E5EXI3PS3Vg&s=10"],
         specs: "LGA 1700, DDR5, PCIe 4.0, Wi-Fi 6E, 3x M.2, ATX",
         status: "ativo",
         estoque: 9,
@@ -103,7 +109,7 @@ const produtos = [
         preco: 4299.00,
         categoria: "Placas de Vídeo",
         marca: "NVIDIA",
-        imagens: ["https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600"],
+        imagens: ["https://media.pichau.com.br/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/g/v/gv-n407swf3oc-12gd6.jpg"],
         specs: "12GB GDDR6X, 7168 CUDA Cores, Ray Tracing, DLSS 3.5",
         status: "ativo",
         estoque: 7,
@@ -118,7 +124,7 @@ const produtos = [
         preco: 3899.00,
         categoria: "Placas de Vídeo",
         marca: "AMD",
-        imagens: ["https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=600"],
+        imagens: ["https://static.gigabyte.com/StaticFile/Image/Global/369cb90b3cf9ca4b7b00802e3a1ce7b8/Product/36215"],
         specs: "16GB GDDR6, 3840 Stream Processors, RDNA 3, FSR 3",
         status: "ativo",
         estoque: 5,
@@ -133,7 +139,7 @@ const produtos = [
         preco: 1199.00,
         categoria: "Armazenamento",
         marca: "Samsung",
-        imagens: ["https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=600"],
+        imagens: ["https://http2.mlstatic.com/D_752732-MLB91298187842_092025-C.jpg"],
         specs: "2TB, PCIe 4.0 x4, 7450/6900 MB/s, DRAM Cache",
         status: "ativo",
         estoque: 28,
@@ -148,7 +154,7 @@ const produtos = [
         preco: 399.00,
         categoria: "Armazenamento",
         marca: "Kingston",
-        imagens: ["https://images.unsplash.com/photo-1624823183493-ed5832f48f18?w=600"],
+        imagens: ["https://images.kabum.com.br/produtos/fotos/sync_mirakl/400812/xlarge/SSD-1TB-Kingston-Nv2-M-2-2280-PCIe-NVMe-Leitura-3500MB-s-Grava-o-2100MB-s-Snv2s-1000g_1786987754.jpg"],
         specs: "1TB, PCIe 4.0, 3500/2100 MB/s, M.2 2280",
         status: "ativo",
         estoque: 53,
@@ -163,7 +169,7 @@ const produtos = [
         preco: 899.00,
         categoria: "Fontes",
         marca: "Corsair",
-        imagens: ["https://images.unsplash.com/photo-1625842268584-8f3296236761?w=600"],
+        imagens: ["https://media.pichau.com.br/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/c/p/cp-9020270-br1.jpg"],
         specs: "850W, 80 Plus Gold, Modular, ATX 3.0, Zero RPM",
         status: "ativo",
         estoque: 22,
@@ -178,16 +184,45 @@ const produtos = [
         preco: 1299.00,
         categoria: "Coolers",
         marca: "NZXT",
-        imagens: ["https://images.unsplash.com/photo-1587202372160-9c5a3e3f0e3a?w=600"],
+        imagens: ["https://images.kabum.com.br/produtos/fotos/728412/watercooler-nzxt-kraken-plus-360-rgb-v2-preto-rl-kr360-b2_1759943292_gg.jpg"],
         specs: "360mm, LCD Display, RGB, Socket AM5/LGA1700",
         status: "ativo",
         estoque: 13,
         desconto: 0,
         avaliacao: 5,
         reviews: 167
-    }
+    } 
 ];
+// 2. Busca o que está salvo na memória do navegador
+let produtosDaMemoria = JSON.parse(localStorage.getItem(CHAVE_BANCO)) || [];
 
+// 3. FUNÇÃO DE SINCRONIZAÇÃO INTELIGENTE:
+// Criamos o array final baseado nos produtos do código (garantindo imagens e textos novos)
+let produtos = produtosDoCodigo.map(produtoCodigo => {
+    // Procura se esse mesmo ID já existe na memória para preservar o estoque alterado
+    const produtoMemoria = produtosDaMemoria.find(p => p.id === produtoCodigo.id);
+    if (produtoMemoria) {
+        // Se existir, mantemos os dados estruturais do código (imagem nova, nome, etc)
+        // mas preservamos as propriedades mutáveis da memória (como estoque)
+        return {
+            ...produtoCodigo,
+            estoque: produtoMemoria.estoque,
+            status: produtoMemoria.status
+        };
+    }
+    return produtoCodigo;
+});
+
+// 4. Se houver produtos criados pelo formulário de estoque (IDs novos que não existem no código), nós adicionamos eles no final da lista
+produtosDaMemoria.forEach(produtoMemoria => {
+    const existeNoCodigo = produtosDoCodigo.some(p => p.id === produtoMemoria.id);
+    if (!existeNoCodigo) {
+        produtos.push(produtoMemoria);
+    }
+});
+
+// 5. Atualiza o banco do navegador com a lista sincronizada
+localStorage.setItem(CHAVE_BANCO, JSON.stringify(produtos));
 // ============================================================
 //  ARRAY DE ITENS DO CARRINHO
 // ============================================================
