@@ -222,3 +222,112 @@ function showToast(mensagem) {
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 2500);
 }
+
+// ============================================================
+//  RENDERIZAR PILLS DE CATEGORIA
+// ============================================================
+function renderPills() {
+    const categorias = ["Todos", ...new Set(produtos.map(p => p.categoria))];
+    const container = document.getElementById("pillsContainer");
+    container.innerHTML = categorias.map(cat =>
+        `<div class="pill ${cat === categoriaAtiva ? "active" : ""}" data-categoria="${cat}">${cat}</div>`
+    ).join("");
+
+    container.querySelectorAll(".pill").forEach(pill => {
+        pill.addEventListener("click", () => {
+            categoriaAtiva = pill.dataset.categoria;
+            renderPills();
+            renderProdutos();
+            atualizarTitulo();
+        });
+    });
+}
+
+// ============================================================
+//  RENDERIZAR MENU DE MARCAS
+// ============================================================
+function renderMarcasMenu() {
+    const marcas = ["Todas", ...new Set(produtos.map(p => p.marca))];
+    const menu = document.getElementById("marcaMenu");
+    menu.innerHTML = marcas.map(m =>
+        `<div class="filter-option" data-marca="${m}">${m}</div>`
+    ).join("");
+
+    menu.querySelectorAll(".filter-option").forEach(opt => {
+        opt.addEventListener("click", () => {
+            marcaSelecionada = opt.dataset.marca;
+            document.getElementById("marcaBtn").childNodes[0].nodeValue =
+                marcaSelecionada === "Todas" ? "Marca" : marcaSelecionada;
+            closeAllMenus();
+            renderProdutos();
+        });
+    });
+}
+
+// ============================================================
+//  FILTRAR PRODUTOS
+// ============================================================
+function filtrarProdutos() {
+    let lista = produtos.filter(p => p.status === "ativo");
+
+    if (categoriaAtiva !== "Todos") {
+        lista = lista.filter(p => p.categoria === categoriaAtiva);
+    }
+
+    if (marcaSelecionada !== "Todas") {
+        lista = lista.filter(p => p.marca === marcaSelecionada);
+    }
+
+    if (faixaPreco !== "todos") {
+        lista = lista.filter(p => {
+            const preco = calcularPrecoFinal(p);
+            switch(faixaPreco) {
+                case "0-500":      return preco <= 500;
+                case "500-1500":   return preco > 500 && preco <= 1500;
+                case "1500-5000":  return preco > 1500 && preco <= 5000;
+                case "5000+":      return preco > 5000;
+                default:           return true;
+            }
+        });
+    }
+
+    if (termoBusca.trim() !== "") {
+        const t = termoBusca.toLowerCase();
+        lista = lista.filter(p =>
+            p.nome.toLowerCase().includes(t) ||
+            p.descricao.toLowerCase().includes(t) ||
+            p.marca.toLowerCase().includes(t) ||
+            p.categoria.toLowerCase().includes(t)
+        );
+    }
+
+    switch(ordenacao) {
+        case "menor-preco":     lista.sort((a, b) => calcularPrecoFinal(a) - calcularPrecoFinal(b)); break;
+        case "maior-preco":     lista.sort((a, b) => calcularPrecoFinal(b) - calcularPrecoFinal(a)); break;
+        case "maior-desconto":  lista.sort((a, b) => b.desconto - a.desconto); break;
+    }
+
+    return lista;
+}
+
+// ============================================================
+//  ATUALIZAR TÍTULO DA SEÇÃO
+// ============================================================
+function atualizarTitulo() {
+    const titulo = document.getElementById("sectionTitle");
+    titulo.textContent = categoriaAtiva === "Todos" ? "Catálogo Completo" : categoriaAtiva;
+}
+
+// ============================================================
+//  GERENCIAR MENUS DE FILTRO
+// ============================================================
+function closeAllMenus() {
+    document.querySelectorAll(".filter-menu").forEach(m => m.classList.remove("open"));
+}
+
+function toggleMenu(menuId) {
+    const menu = document.getElementById(menuId);
+    const isOpen = menu.classList.contains("open");
+    closeAllMenus();
+    if (!isOpen) menu.classList.add("open");
+}
