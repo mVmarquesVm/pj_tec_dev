@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore — Catálogo de Produtos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="logo">Tech<span>Store</span></div>
+            <div class="search-bar">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="searchInput" placeholder="Buscar produtos, marcas, categorias..." />
+            </div>
+            <div class="header-icons">
+                <div class="header-icon" title="Login">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>
+                </div>
+                <div class="header-icon cart-icon" id="cartIcon" title="Carrinho">
+                    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="18" cy="21" r="1"/><path d="M2 2h3l2.5 13h12l2-8H6"/></svg>
+                    <div class="cart-badge" id="cartBadge" style="display:none;">0</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PILLS DE CATEGORIA -->
+    <div class="pills-container" id="pillsContainer"></div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="container">
+        <!-- FILTROS -->
+        <div class="filters-bar">
+            <div class="filter-dropdown">
+                <button class="filter-btn" id="ordenarBtn">
+                    Ordenar por
+                    <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="filter-menu" id="ordenarMenu">
+                    <div class="filter-option" data-ordenar="relevancia">Relevância</div>
+                    <div class="filter-option" data-ordenar="menor-preco">Menor Preço</div>
+                    <div class="filter-option" data-ordenar="maior-preco">Maior Preço</div>
+                    <div class="filter-option" data-ordenar="maior-desconto">Maior Desconto</div>
+                </div>
+            </div>
+            <div class="filter-dropdown">
+                <button class="filter-btn" id="marcaBtn">
+                    Marca
+                    <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="filter-menu" id="marcaMenu"></div>
+            </div>
+            <div class="filter-dropdown">
+                <button class="filter-btn" id="precoBtn">
+                    Faixa de Preço
+                    <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="filter-menu" id="precoMenu">
+                    <div class="filter-option" data-preco="todos">Todos os preços</div>
+                    <div class="filter-option" data-preco="0-500">Até R$ 500</div>
+                    <div class="filter-option" data-preco="500-1500">R$ 500 — R$ 1.500</div>
+                    <div class="filter-option" data-preco="1500-5000">R$ 1.500 — R$ 5.000</div>
+                    <div class="filter-option" data-preco="5000+">Acima de R$ 5.000</div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="sectionTitle">Catálogo Completo</h2>
+        <div class="products-grid" id="productsGrid"></div>
+    </div>
+
+    <!-- CARRINHO DRAWER -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <div class="cart-title">Carrinho</div>
+            <button class="cart-close" id="cartClose">
+                <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer">
+            <div class="cart-subtotal-row">
+                <span class="cart-subtotal-label">Subtotal</span>
+                <span class="cart-subtotal-value" id="cartSubtotal">R$ 0,00</span>
+            </div>
+            <button class="cart-checkout-btn" id="checkoutBtn" disabled>Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- NAV INFERIOR (MOBILE) -->
+    <nav class="nav-bottom">
+        <div class="nav-bottom-item active">
+            <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>
+            <span>Início</span>
+        </div>
+        <div class="nav-bottom-item">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span>Buscar</span>
+        </div>
+        <div class="nav-bottom-item" id="navCartBtn">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="18" cy="21" r="1"/><path d="M2 2h3l2.5 13h12l2-8H6"/></svg>
+            <span>Carrinho</span>
+        </div>
+        <div class="nav-bottom-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>
+            <span>Perfil</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
