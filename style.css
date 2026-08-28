@@ -1,0 +1,31 @@
+/* ============ DESIGN SYSTEM TOKENS ============ */
+:root {
+    --cor-preto: #000000;
+    --cor-branco: #FFFFFF;
+    --cor-neon: #FF6B00;
+    --cor-cinza-clarissimo: #F7F7F7;
+    --cor-cinza-claro: #EEEEEE;
+    --cor-cinza-medio: #BDBDBD;
+    --cor-cinza-escuro: #424242;
+    --cor-vermelho: #E53935;
+    --cor-ouro: #FFB300;
+    --radius-card: 12px;
+    --radius-pill: 24px;
+    --radius-mobile: 10px;
+    --radius-pill-mobile: 20px;
+    --transition: all 0.3s ease;
+    --glow-neon: 0 0 12px rgba(255, 107, 0, 0.3);
+    --shadow-header: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* ============ RESET ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cor-branco);
+    color: var(--cor-preto);
+    line-height: 1.5;
+}
+
+::-webkit-scrollbar { width: 0; height: 0; }
