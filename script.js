@@ -555,3 +555,77 @@ function fecharCarrinho() {
     document.getElementById("cartDrawer").classList.remove("open");
     document.getElementById("cartOverlay").classList.remove("open");
 }
+
+// ============================================================
+//  EVENT LISTENERS
+// ============================================================
+document.getElementById("cartIcon").addEventListener("click", abrirCarrinho);
+document.getElementById("navCartBtn").addEventListener("click", abrirCarrinho);
+document.getElementById("cartClose").addEventListener("click", fecharCarrinho);
+document.getElementById("cartOverlay").addEventListener("click", fecharCarrinho);
+
+// Busca em tempo real
+document.getElementById("searchInput").addEventListener("input", (e) => {
+    termoBusca = e.target.value;
+    renderProdutos();
+});
+
+// Dropdowns de filtro
+document.getElementById("ordenarBtn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu("ordenarMenu");
+});
+
+document.getElementById("marcaBtn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu("marcaMenu");
+});
+
+document.getElementById("precoBtn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu("precoMenu");
+});
+
+// Seleção dentro de "Ordenar por"
+document.querySelectorAll("#ordenarMenu .filter-option").forEach(opt => {
+    opt.addEventListener("click", () => {
+        ordenacao = opt.dataset.ordenar;
+        document.getElementById("ordenarBtn").childNodes[0].nodeValue = opt.textContent + " ";
+        document.querySelectorAll("#ordenarMenu .filter-option").forEach(o => o.classList.remove("selected"));
+        opt.classList.add("selected");
+        closeAllMenus();
+        renderProdutos();
+    });
+});
+
+// Seleção dentro de "Faixa de Preço"
+document.querySelectorAll("#precoMenu .filter-option").forEach(opt => {
+    opt.addEventListener("click", () => {
+        faixaPreco = opt.dataset.preco;
+        document.getElementById("precoBtn").childNodes[0].nodeValue = opt.textContent + " ";
+        document.querySelectorAll("#precoMenu .filter-option").forEach(o => o.classList.remove("selected"));
+        opt.classList.add("selected");
+        closeAllMenus();
+        renderProdutos();
+    });
+});
+
+// Fechar menus ao clicar fora
+document.addEventListener("click", (e) => {
+    if (!e.target.closest(".filter-dropdown")) {
+        closeAllMenus();
+    }
+});
+
+// Botão de checkout (placeholder)
+document.getElementById("checkoutBtn").addEventListener("click", () => {
+    showToast("Funcionalidade de checkout em desenvolvimento!");
+});
+
+// ============================================================
+//  INICIALIZAÇÃO
+// ============================================================
+renderPills();
+renderMarcasMenu();
+renderProdutos();
+atualizarBadge();
