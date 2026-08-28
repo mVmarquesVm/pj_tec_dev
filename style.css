@@ -29,3 +29,117 @@ body {
 }
 
 ::-webkit-scrollbar { width: 0; height: 0; }
+
+/* ============ HEADER ============ */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: var(--cor-branco);
+    box-shadow: var(--shadow-header);
+    height: 72px;
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+}
+
+.header-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: 0px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.logo span { color: var(--cor-neon); }
+
+.search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--cor-cinza-clarissimo);
+    border-radius: var(--radius-pill);
+    height: 48px;
+    padding: 0 16px;
+    gap: 10px;
+    border: 1px solid transparent;
+    transition: var(--transition);
+}
+
+.search-bar:focus-within { border-color: var(--cor-neon); }
+
+.search-bar svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--cor-cinza-medio);
+    flex-shrink: 0;
+}
+
+.search-bar input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--cor-preto);
+}
+
+.search-bar input::placeholder { color: var(--cor-cinza-medio); }
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-icon {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.header-icon:hover { background: var(--cor-cinza-clarissimo); }
+
+.header-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--cor-preto);
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.cart-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: var(--cor-neon);
+    color: var(--cor-branco);
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
