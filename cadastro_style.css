@@ -1,0 +1,395 @@
+/* ============ DESIGN SYSTEM TOKENS (mesmos da loja) ============ */
+:root {
+    --cor-preto: #000000;
+    --cor-branco: #FFFFFF;
+    --cor-neon: #FF6B00;
+    --cor-cinza-clarissimo: #F7F7F7;
+    --cor-cinza-claro: #EEEEEE;
+    --cor-cinza-medio: #BDBDBD;
+    --cor-cinza-escuro: #424242;
+    --cor-vermelho: #E53935;
+    --cor-verde: #2E7D32;
+    --cor-ouro: #FFB300;
+    --radius-card: 12px;
+    --radius-pill: 24px;
+    --radius-mobile: 10px;
+    --transition: all 0.3s ease;
+    --glow-neon: 0 0 12px rgba(255, 107, 0, 0.3);
+    --glow-vermelho: 0 0 12px rgba(229, 57, 53, 0.2);
+    --shadow-header: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* ============ RESET ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cor-cinza-clarissimo);
+    color: var(--cor-preto);
+    line-height: 1.5;
+}
+
+/* ============ HEADER ============ */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: var(--cor-branco);
+    box-shadow: var(--shadow-header);
+    height: 72px;
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+}
+
+.header-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--cor-preto);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.logo span { color: var(--cor-neon); }
+
+.link-voltar {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cor-cinza-escuro);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.link-voltar:hover { color: var(--cor-neon); }
+
+.link-voltar svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+}
+
+/* ============ CONTAINER ============ */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+}
+
+/* ============ PAINEL / CARD ============ */
+.panel {
+    background: var(--cor-branco);
+    border: 1px solid var(--cor-cinza-claro);
+    border-radius: var(--radius-card);
+    padding: 32px;
+}
+
+.panel-head { margin-bottom: 28px; }
+
+.panel-title {
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+}
+
+.panel-sub {
+    font-size: 14px;
+    color: var(--cor-cinza-escuro);
+}
+
+.req { color: var(--cor-neon); font-weight: 700; }
+.opc { color: var(--cor-cinza-medio); font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+/* ============ FIELDSET ============ */
+fieldset {
+    border: 1px solid var(--cor-cinza-claro);
+    border-radius: var(--radius-card);
+    padding: 24px 20px 8px;
+    margin-bottom: 24px;
+}
+
+legend {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--cor-preto);
+    padding: 0 10px;
+    margin-left: -4px;
+}
+
+/* ============ CAMPOS ============ */
+.campo { margin-bottom: 18px; }
+
+.linha {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* CEP menor que a Rua */
+.linha-cep { grid-template-columns: 1fr 2fr; }
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--cor-cinza-escuro);
+    margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    background: var(--cor-cinza-clarissimo);
+    border: 1px solid var(--cor-cinza-claro);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--cor-preto);
+    outline: none;
+    transition: var(--transition);
+}
+
+input::placeholder { color: var(--cor-cinza-medio); }
+
+input:focus {
+    border-color: var(--cor-neon);
+    background: var(--cor-branco);
+    box-shadow: var(--glow-neon);
+}
+
+/* Dica: o que colocar na caixa */
+.dica {
+    display: block;
+    font-size: 11px;
+    color: var(--cor-cinza-medio);
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+/* Mensagem de erro por campo */
+.erro {
+    display: none;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--cor-vermelho);
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+/* Estado de erro */
+.campo.invalido input {
+    border-color: var(--cor-vermelho);
+    background: var(--cor-branco);
+}
+
+.campo.invalido input:focus { box-shadow: var(--glow-vermelho); }
+.campo.invalido .dica { display: none; }
+.campo.invalido .erro { display: block; }
+
+/* Estado válido */
+.campo.valido input { border-color: var(--cor-cinza-claro); }
+
+/* ============ CAMPO DE SENHA (com olho) ============ */
+.campo-senha { position: relative; }
+.campo-senha input { padding-right: 48px; }
+
+.btn-olho {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.btn-olho svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--cor-cinza-medio);
+    fill: none;
+    stroke-width: 1.6;
+}
+
+.btn-olho:hover svg { stroke: var(--cor-neon); }
+.btn-olho[aria-pressed="true"] svg { stroke: var(--cor-neon); }
+
+/* ============ ERRO GERAL ============ */
+.erro-geral {
+    background: rgba(229, 57, 53, 0.06);
+    border: 1px solid var(--cor-vermelho);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cor-vermelho);
+    margin-bottom: 20px;
+}
+
+/* ============ BOTÕES ============ */
+.btn-submit {
+    display: block;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    background: var(--cor-preto);
+    color: var(--cor-branco);
+    border: none;
+    border-radius: var(--radius-pill);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-submit:hover {
+    background: var(--cor-neon);
+    box-shadow: var(--glow-neon);
+}
+
+.btn-secundario {
+    display: block;
+    width: 100%;
+    height: 48px;
+    background: var(--cor-branco);
+    color: var(--cor-preto);
+    border: 1px solid var(--cor-cinza-claro);
+    border-radius: var(--radius-pill);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-secundario:hover { border-color: var(--cor-neon); color: var(--cor-neon); }
+
+.form-rodape {
+    text-align: center;
+    font-size: 13px;
+    color: var(--cor-cinza-escuro);
+    margin-top: 18px;
+}
+
+.link-inline {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cor-neon);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* ============ PAINEL DE SUCESSO ============ */
+.panel-sucesso { text-align: center; }
+
+.sucesso-icone {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: var(--cor-preto);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sucesso-icone svg {
+    width: 30px;
+    height: 30px;
+    stroke: var(--cor-neon);
+    fill: none;
+    stroke-width: 2.5;
+}
+
+.sucesso-acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+/* ============ TOAST ============ */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--cor-preto);
+    color: var(--cor-branco);
+    padding: 12px 24px;
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 300;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    max-width: calc(100% - 32px);
+    text-align: center;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* ============ FOCO VISÍVEL (acessibilidade) ============ */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--cor-neon);
+    outline-offset: 2px;
+}
+
+/* ============ RESPONSIVO ============ */
+@media (max-width: 767px) {
+    header { padding: 0 16px; height: 56px; }
+    .logo { font-size: 20px; }
+    .link-voltar span { display: none; }
+
+    .container { padding: 20px 16px 48px; }
+    .panel { padding: 20px 16px; border-radius: var(--radius-mobile); }
+    .panel-title { font-size: 18px; }
+
+    fieldset { padding: 20px 14px 4px; }
+
+    /* Campos empilham no celular */
+    .linha,
+    .linha-cep { grid-template-columns: 1fr; gap: 0; }
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore — Entrar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login_style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="header-container">
+        <a href="index.html" class="logo">Tech<span>Store</span></a>
+        <a href="index.html" class="link-voltar">
+            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>Voltar para a loja</span>
+        </a>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- INDICADOR DE ETAPAS -->
+    <ol class="etapas" id="etapas">
+        <li class="etapa ativa" id="etapa1"><span class="etapa-num">1</span> Credenciais</li>
+        <li class="etapa" id="etapa2"><span class="etapa-num">2</span> Verificação</li>
+    </ol>
+
+    <!-- ============ ETAPA 1: E-MAIL + SENHA ============ -->
+    <section class="panel" id="painelCredenciais">
+        <div class="panel-head">
+            <h1 class="panel-title">Entrar</h1>
+            <p class="panel-sub">Acesse sua conta para comprar na TechStore.</p>
+        </div>
+
+        <form id="formLogin" novalidate>
+            <fieldset>
+                <legend>Dados de acesso</legend>
+
+                <div class="campo">
+                    <label for="email">E-mail <span class="req">*</span></label>
+                    <input type="email" id="email" name="email" autocomplete="email"
+                           placeholder="voce@email.com"
+                           aria-required="true" aria-describedby="dica-email erro-email">
+                    <span class="dica" id="dica-email">O e-mail que você usou no cadastro, com domínio completo.</span>
+                    <span class="erro" id="erro-email" role="alert"></span>
+                </div>
+
+                <div class="campo">
+                    <label for="senha">Senha <span class="req">*</span></label>
+                    <div class="campo-senha">
+                        <input type="password" id="senha" name="senha" autocomplete="current-password"
+                               placeholder="Sua senha"
+                               aria-required="true" aria-describedby="dica-senha erro-senha">
+                        <button type="button" class="btn-olho" data-alvo="senha"
+                                aria-label="Mostrar senha" aria-pressed="false">
+                            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                    </div>
+                    <span class="dica" id="dica-senha">A senha que você criou no cadastro.</span>
+                    <span class="erro" id="erro-senha" role="alert"></span>
+                </div>
+            </fieldset>
+
+            <div class="erro-geral" id="erroGeral" role="alert" hidden></div>
+
+            <button type="submit" class="btn-submit">Continuar</button>
+        </form>
+
+        <div class="divisor"><span>ainda não tem conta?</span></div>
+        <a href="cadastro.html" class="btn-secundario">Criar minha conta</a>
+    </section>
+
+    <!-- ============ ETAPA 2: CÓDIGO DE ACESSO ============ -->
+    <section class="panel" id="painelCodigo" hidden>
+        <div class="panel-head">
+            <h1 class="panel-title">Confirme que é você</h1>
+            <p class="panel-sub">
+                Enviamos um código de 6 dígitos para
+                <strong id="emailMascarado"></strong>.
+            </p>
+        </div>
+
+        <!-- Aviso: este projeto não tem servidor de e-mail -->
+        <div class="simulacao">
+            <div class="simulacao-titulo">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                Simulação
+            </div>
+            <p>
+                Num sistema real este código chegaria por e-mail ou SMS. Como este projeto
+                roda só no navegador, sem servidor, ele aparece aqui:
+            </p>
+            <div class="codigo-gerado" id="codigoGerado">------</div>
+        </div>
+
+        <form id="formCodigo" novalidate>
+            <fieldset>
+                <legend>Código de acesso</legend>
+
+                <div class="campo">
+                    <label id="labelCodigo">Digite os 6 dígitos <span class="req">*</span></label>
+                    <div class="codigo-caixas" role="group" aria-labelledby="labelCodigo">
+                        <input type="text" class="caixa-digito" id="d1" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Dígito 1">
+                        <input type="text" class="caixa-digito" id="d2" inputmode="numeric" maxlength="1" aria-label="Dígito 2">
+                        <input type="text" class="caixa-digito" id="d3" inputmode="numeric" maxlength="1" aria-label="Dígito 3">
+                        <input type="text" class="caixa-digito" id="d4" inputmode="numeric" maxlength="1" aria-label="Dígito 4">
+                        <input type="text" class="caixa-digito" id="d5" inputmode="numeric" maxlength="1" aria-label="Dígito 5">
+                        <input type="text" class="caixa-digito" id="d6" inputmode="numeric" maxlength="1" aria-label="Dígito 6">
+                    </div>
+                    <span class="dica" id="dica-codigo">Você pode colar o código inteiro na primeira caixa.</span>
+                    <span class="erro" id="erro-codigo" role="alert"></span>
+                </div>
+
+                <div class="codigo-rodape">
+                    <span class="contador" id="contador" aria-live="polite">Expira em 05:00</span>
+                    <button type="button" class="link-inline" id="btnReenviar">Reenviar código</button>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn-submit">Confirmar e entrar</button>
+            <button type="button" class="btn-secundario" id="btnVoltar">Usar outro e-mail</button>
+        </form>
+    </section>
+
+    <!-- ============ SUCESSO ============ -->
+    <section class="panel panel-sucesso" id="painelSucesso" hidden>
+        <div class="sucesso-icone">
+            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h2 class="panel-title">Bem-vindo de volta</h2>
+        <p class="panel-sub" id="sucessoMsg"></p>
+        <div class="sucesso-acoes">
+            <a href="index.html" class="btn-submit">Ir para a loja</a>
+        </div>
+    </section>
+
+</main>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="login_script.js"></script>
+</body>
+</html>
