@@ -193,36 +193,23 @@ const produtosDoCodigo = [
         reviews: 167
     } 
 ];
-// 2. Busca o que está salvo na memória do navegador
-let produtosDaMemoria = JSON.parse(localStorage.getItem(CHAVE_BANCO)) || [];
 
-// 3. FUNÇÃO DE SINCRONIZAÇÃO INTELIGENTE:
-// Criamos o array final baseado nos produtos do código (garantindo imagens e textos novos)
-let produtos = produtosDoCodigo.map(produtoCodigo => {
-    // Procura se esse mesmo ID já existe na memória para preservar o estoque alterado
-    const produtoMemoria = produtosDaMemoria.find(p => p.id === produtoCodigo.id);
-    if (produtoMemoria) {
-        // Se existir, mantemos os dados estruturais do código (imagem nova, nome, etc)
-        // mas preservamos as propriedades mutáveis da memória (como estoque)
-        return {
-            ...produtoCodigo,
-            estoque: produtoMemoria.estoque,
-            status: produtoMemoria.status
-        };
+// Função que garante o carregamento vindo exclusivamente do banco
+function carregarProdutos() {
+    const dadosSalvos = localStorage.getItem(CHAVE_BANCO);
+    
+    if (!dadosSalvos) {
+        // Primeira execução: insere os dados iniciais no localStorage
+        localStorage.setItem(CHAVE_BANCO, JSON.stringify(produtosIniciais));
+        return produtosIniciais;
     }
-    return produtoCodigo;
-});
+    
+    // Retorna direto o array atualizado do banco
+    return JSON.parse(dadosSalvos);
+}
 
-// 4. Se houver produtos criados pelo formulário de estoque (IDs novos que não existem no código), nós adicionamos eles no final da lista
-produtosDaMemoria.forEach(produtoMemoria => {
-    const existeNoCodigo = produtosDoCodigo.some(p => p.id === produtoMemoria.id);
-    if (!existeNoCodigo) {
-        produtos.push(produtoMemoria);
-    }
-});
-
-// 5. Atualiza o banco do navegador com a lista sincronizada
-localStorage.setItem(CHAVE_BANCO, JSON.stringify(produtos));
+// O array da aplicação passa a ser carregado diretamente do banco
+let produtos = carregarProdutos();
 // ============================================================
 //  ARRAY DE ITENS DO CARRINHO
 // ============================================================
