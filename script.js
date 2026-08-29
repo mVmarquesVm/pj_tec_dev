@@ -200,8 +200,8 @@ function carregarProdutos() {
     
     if (!dadosSalvos) {
         // Primeira execução: insere os dados iniciais no localStorage
-        localStorage.setItem(CHAVE_BANCO, JSON.stringify(produtosIniciais));
-        return produtosIniciais;
+        localStorage.setItem(CHAVE_BANCO, JSON.stringify(produtosDoCodigo));
+        return produtosDoCodigo;
     }
     
     // Retorna direto o array atualizado do banco
@@ -639,6 +639,103 @@ document.addEventListener("click", (e) => {
     }
 });
 
+// ============================================================
+//  MENU DA CONTA (bonequinho do header / "Perfil" no mobile)
+// ============================================================
+const userIcon = document.getElementById("userIcon");
+const userMenu = document.getElementById("userMenu");
+
+function fecharMenuUsuario() {
+    userMenu.classList.remove("open");
+    userIcon.setAttribute("aria-expanded", "false");
+}
+
+function alternarMenuUsuario(e) {
+    e.stopPropagation();
+    const aberto = userMenu.classList.toggle("open");
+    userIcon.setAttribute("aria-expanded", String(aberto));
+}
+
+userIcon.addEventListener("click", alternarMenuUsuario);
+document.getElementById("navPerfilBtn").addEventListener("click", alternarMenuUsuario);
+
+// Fecha ao clicar fora do menu
+document.addEventListener("click", (e) => {
+    if (!e.target.closest(".user-dropdown") && !e.target.closest("#navPerfilBtn")) {
+        fecharMenuUsuario();
+    }
+});
+
+// Esc fecha o menu da conta e o carrinho
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        fecharMenuUsuario();
+        fecharCarrinho();
+        closeAllMenus();
+    }
+});
+
+// ============================================================
+//  SESSÃO DO CLIENTE (aberta em login.html)
+// ============================================================
+const CHAVE_SESSAO = "techstore_sessao";
+const CHAVE_USUARIOS = "techstore_usuarios";
+const CHAVE_BANIDOS = "techstore_cpfs_banidos";
+
+function lerSessao() {
+    try {
+        const dados = localStorage.getItem(CHAVE_SESSAO);
+        return dados ? JSON.parse(dados) : null;
+    } catch (e) {
+        return null;
+    }
+}
+
+function lerLista(chave) {
+    try {
+        const dados = localStorage.getItem(chave);
+        return dados ? JSON.parse(dados) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+// Mostra "Olá, Fulano / Sair" quando logado, ou "Entrar / Criar conta" quando não.
+function atualizarMenuUsuario() {
+    const sessao = lerSessao();
+    const conta = sessao
+        ? lerLista(CHAVE_USUARIOS).find(u => u.id === sessao.id)
+        : null;
+
+    // A conta pode ter sido banida ou apagada depois que a sessão abriu
+    const banido = conta &&
+        (conta.banido === true ||
+         lerLista(CHAVE_BANIDOS).includes((conta.cpf || "").replace(/\D/g, "")));
+
+    if (!conta || banido) {
+        if (sessao) localStorage.removeItem(CHAVE_SESSAO);
+        document.getElementById("userMenuTitle").textContent = "Sua conta";
+        document.getElementById("userMenuSub").textContent = "Entre ou crie seu cadastro";
+        document.getElementById("linkEntrar").hidden = false;
+        document.getElementById("linkCadastro").hidden = false;
+        document.getElementById("btnSair").hidden = true;
+        return;
+    }
+
+    document.getElementById("userMenuTitle").textContent = "Olá, " + conta.nome.split(" ")[0];
+    document.getElementById("userMenuSub").textContent = conta.email;
+    document.getElementById("linkEntrar").hidden = true;
+    document.getElementById("linkCadastro").hidden = true;
+    document.getElementById("btnSair").hidden = false;
+}
+
+document.getElementById("btnSair").addEventListener("click", () => {
+    localStorage.removeItem(CHAVE_SESSAO);
+    atualizarMenuUsuario();
+    fecharMenuUsuario();
+    showToast("Você saiu da sua conta");
+});
+
 // Botão de checkout (placeholder)
 document.getElementById("checkoutBtn").addEventListener("click", () => {
     showToast("Funcionalidade de checkout em desenvolvimento!");
@@ -650,4 +747,5 @@ document.getElementById("checkoutBtn").addEventListener("click", () => {
 renderPills();
 renderMarcasMenu();
 renderProdutos();
+atualizarMenuUsuario();
 atualizarBadge();

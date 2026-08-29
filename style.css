@@ -115,6 +115,10 @@ header {
     height: 40px;
     border-radius: 50%;
     transition: var(--transition);
+    /* reset para quando o ícone é um <button> */
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 .header-icon:hover { background: var(--cor-cinza-clarissimo); }
@@ -143,6 +147,78 @@ header {
     justify-content: center;
     padding: 0 4px;
 }
+
+/* ============ MENU DA CONTA (login / cadastro) ============ */
+.user-dropdown { position: relative; }
+
+.user-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    width: 240px;
+    background: var(--cor-branco);
+    border: 1px solid var(--cor-cinza-claro);
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    z-index: 95;
+    padding: 8px 0;
+    display: none;
+}
+
+.user-menu.open { display: block; }
+
+.user-menu-head {
+    padding: 8px 16px 12px;
+    border-bottom: 1px solid var(--cor-cinza-claro);
+    margin-bottom: 6px;
+}
+
+.user-menu-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.user-menu-sub {
+    font-size: 12px;
+    color: var(--cor-cinza-medio);
+    margin-top: 2px;
+}
+
+.user-menu-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: none;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cor-preto);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.user-menu-item:hover {
+    background: var(--cor-cinza-clarissimo);
+    color: var(--cor-neon);
+}
+
+.user-menu-item svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.6;
+    flex-shrink: 0;
+}
+
 /* ============ CONTAINER ============ */
 .container {
     max-width: 1200px;
@@ -797,7 +873,21 @@ header {
 
     .products-grid { padding-bottom: 80px; }
 
+    /* No celular o acesso à conta fica na nav inferior ("Perfil"),
+       então o ícone do header some e o menu vira uma folha de baixo. */
     .header-icons .header-icon:not(.cart-icon) { display: none; }
+    .header-icons { gap: 0; }
+
+    .user-menu {
+        position: fixed;
+        top: auto;
+        bottom: 72px;
+        left: 16px;
+        right: 16px;
+        width: auto;
+        margin-top: 0;
+        z-index: 110;
+    }
 
     .cart-drawer { width: 100%; right: -100%; }
     .cart-drawer.open { right: 0; }
