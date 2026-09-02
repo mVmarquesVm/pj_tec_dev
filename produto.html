@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore — Detalhes do Produto</title>
+    <link rel="stylesheet" href="produto_style.css">
+</head>
+<body>
+
+    <header class="site-header" role="banner">
+        <div class="header-container">
+            <a href="index.html" class="logo" aria-label="TechStore — página inicial">
+                Tech<span>Store</span>
+            </a>
+
+            <nav class="header-actions" aria-label="Navegação principal">
+                <a href="index.html" class="btn-voltar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Catálogo
+                </a>
+
+                <button type="button" class="header-icon cart-icon" id="cartIcon" aria-label="Abrir carrinho de compras">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="9" cy="21" r="1"/>
+                        <circle cx="18" cy="21" r="1"/>
+                        <path d="M2 2h3l2.5 13h12l2-8H6"/>
+                    </svg>
+                    <span class="cart-badge" id="cartBadge" aria-live="polite" hidden>0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="product-container" id="conteudo-principal">
+        <article id="detalhe-produto" class="product-detail-layout" aria-live="polite">
+            <p class="loading-msg">Carregando informações do produto...</p>
+        </article>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+        <header class="cart-header">
+            <h2 class="cart-title" id="cartTitle">Seu Carrinho</h2>
+            <button type="button" class="cart-close" id="cartClose" aria-label="Fechar carrinho">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+        </header>
+
+        <div class="cart-items" id="cartItems">
+            <!-- itens via JS -->
+        </div>
+
+        <footer class="cart-footer">
+            <div class="cart-subtotal-row">
+                <span class="cart-subtotal-label">Subtotal</span>
+                <strong class="cart-subtotal-value" id="cartSubtotal">R$ 0,00</strong>
+            </div>
+            <button type="button" class="cart-checkout-btn" id="checkoutBtn" disabled>
+                Finalizar Compra
+            </button>
+        </footer>
+    </aside>
+
+    <script src="produto_script.js"></script>
+</body>
+</html>
