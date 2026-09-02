@@ -213,7 +213,10 @@ let produtos = carregarProdutos();
 // ============================================================
 //  ARRAY DE ITENS DO CARRINHO
 // ============================================================
-let carrinho = [];
+let carrinho = localStorage.getItem('techstore_carrinho_global') 
+    ? JSON.parse(localStorage.getItem('techstore_carrinho_global')) 
+    : [];
+
 
 // ============================================================
 //  ESTADO DE FILTROS
@@ -355,7 +358,7 @@ function toggleMenu(menuId) {
 }
 
 // ============================================================
-//  RENDERIZAR PRODUTOS
+//  RENDERIZAR PRODUTOS (ATUALIZADO COM LINKS DINÂMICOS)
 // ============================================================
 function renderProdutos() {
     const grid = document.getElementById("productsGrid");
@@ -396,25 +399,33 @@ function renderProdutos() {
                </button>`;
 
         return `
-        <div class="product-card" data-id="${p.id}">
-            <div class="product-image-wrapper">
-                <img src="${p.imagens[0]}" alt="${p.nome}" loading="lazy" />
-                ${esgotado ? '<div class="badge-esgotado">Esgotado</div>' : ""}
-                ${temDesconto ? `<div class="badge-desconto">-${p.desconto}%</div>` : ""}
-                ${btnAdd}
-            </div>
-            <div class="product-info">
-                <div class="product-marca">${p.marca}</div>
-                <div class="product-nome">${p.nome}</div>
-                <div class="product-descricao">${p.descricao}</div>
-                <div class="product-rating">
-                    ${estrelas}
-                    <span class="review-count">(${p.reviews})</span>
+            <div class="product-card" data-id="${p.id}">
+                <div class="product-image-wrapper">
+                    <!-- LINK DINÂMICO NA IMAGEM -->
+                    <a href="produto.html?id=${p.id}" style="display: block; width: 100%; height: 100%;">
+                        <img src="${p.imagens[0]}" alt="${p.nome}" loading="lazy" />
+                    </a>
+                    ${esgotado ? '<div class="badge-esgotado">Esgotado</div>' : ""}
+                    ${temDesconto ? `<div class="badge-desconto">-${p.desconto}%</div>` : ""}
+                    ${btnAdd}
                 </div>
-                <div class="product-specs-mini">${p.specs}</div>
-                ${blocoPreco}
-            </div>
-        </div>`;
+                <div class="product-info">
+                    <div class="product-marca">${p.marca}</div>
+                    
+                    <!-- LINK DINÂMICO NO TÍTULO -->
+                    <div class="product-nome">
+                        <a href="produto.html?id=${p.id}" style="text-decoration: none; color: inherit;">${p.nome}</a>
+                    </div>
+                    
+                    <div class="product-descricao">${p.descricao}</div>
+                    <div class="product-rating">
+                        ${estrelas}
+                        <span class="review-count">(${p.reviews})</span>
+                    </div>
+                    <div class="product-specs-mini">${p.specs}</div>
+                    ${blocoPreco}
+                </div>
+            </div>`;
     }).join("");
 }
 
@@ -426,6 +437,7 @@ function adicionarCarrinho(produtoId) {
     if (!produto || produto.estoque === 0) {
         showToast("Produto esgotado — indisponível");
         return;
+    
     }
 
     const itemExistente = carrinho.find(item => item.id === produtoId);
@@ -451,6 +463,8 @@ function adicionarCarrinho(produtoId) {
     renderCarrinho();
     atualizarBadge();
     showToast(`${produto.nome} adicionado ao carrinho`);
+    
+localStorage.setItem('techstore_carrinho_global', JSON.stringify(carrinho));
 }
 
 // ============================================================
@@ -461,6 +475,8 @@ function removerCarrinho(produtoId) {
     renderCarrinho();
     atualizarBadge();
     showToast("Item removido do carrinho");
+
+    localStorage.setItem('techstore_carrinho_global', JSON.stringify(carrinho));
 }
 
 // ============================================================
@@ -486,6 +502,8 @@ function alterarQuantidade(produtoId, delta) {
     item.quantidade = novaQty;
     renderCarrinho();
     atualizarBadge();
+
+    localStorage.setItem('techstore_carrinho_global', JSON.stringify(carrinho));
 }
 
 // ============================================================
