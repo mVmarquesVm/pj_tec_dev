@@ -358,7 +358,7 @@ document.getElementById("cartClose").addEventListener("click", fecharCarrinho);
 document.getElementById("cartOverlay").addEventListener("click", fecharCarrinho);
 
 document.getElementById("checkoutBtn").addEventListener("click", () => {
-    showToast("Funcionalidade de checkout em desenvolvimento!");
+    window.location.href = "checkout.html";
 });
 
 document.addEventListener("keydown", (e) => {

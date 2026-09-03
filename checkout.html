@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore — Finalizar Compra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="checkout_style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="header-container">
+        <a href="index.html" class="logo">Tech<span>Store</span></a>
+        <a href="index.html" class="link-voltar">
+            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>Continuar comprando</span>
+        </a>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- ============ BLOQUEIO: CARRINHO VAZIO ============ -->
+    <section class="estado-vazio" id="estadoVazio" hidden>
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="18" cy="21" r="1"/><path d="M2 2h3l2.5 13h12l2-8H6"/></svg>
+        <h2>Seu carrinho está vazio</h2>
+        <p>Adicione produtos ao carrinho para poder finalizar uma compra.</p>
+        <a href="index.html" class="btn-submit">Ver o catálogo</a>
+    </section>
+
+    <!-- ============ BLOQUEIO: PRECISA ENTRAR ============ -->
+    <section class="estado-vazio" id="estadoLogin" hidden>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>
+        <h2>Entre para finalizar</h2>
+        <p>Você precisa estar na sua conta para concluir a compra. Seu carrinho fica guardado.</p>
+        <a href="login.html?retorno=checkout" class="btn-submit" id="linkEntrar">Entrar na minha conta</a>
+        <a href="cadastro.html" class="btn-secundario">Criar uma conta</a>
+    </section>
+
+    <!-- ============ BLOQUEIO: CONTA BANIDA ============ -->
+    <section class="estado-vazio" id="estadoBanido" hidden>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.9 4.9l14.2 14.2"/></svg>
+        <h2>Conta bloqueada</h2>
+        <p>Esta conta está banida e não pode concluir compras na loja.</p>
+        <a href="index.html" class="btn-submit">Voltar para a loja</a>
+    </section>
+
+    <!-- ============ CHECKOUT ============ -->
+    <div id="checkoutWrap" hidden>
+        <h1 class="pagina-titulo">Finalizar compra</h1>
+
+        <div class="checkout-grid">
+
+            <!-- ---------- COLUNA DO FORMULÁRIO ---------- -->
+            <form id="formCheckout" novalidate>
+
+                <!-- ===== 1. ENDEREÇO DE ENTREGA ===== -->
+                <fieldset class="bloco">
+                    <legend><span class="legend-num">1</span> Endereço de entrega</legend>
+                    <p class="bloco-sub">Escolha um endereço. Só um pode ficar selecionado.</p>
+
+                    <div id="listaEnderecos" role="radiogroup" aria-label="Endereço de entrega"></div>
+
+                    <span class="erro" id="erro-endereco" role="alert"></span>
+
+                    <button type="button" class="btn-adicionar" id="btnNovoEndereco">
+                        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                        Adicionar novo endereço
+                    </button>
+                </fieldset>
+
+                <!-- ===== 2. FORMA DE PAGAMENTO ===== -->
+                <fieldset class="bloco">
+                    <legend><span class="legend-num">2</span> Forma de pagamento</legend>
+                    <p class="bloco-sub">Escolha uma forma. Não é possível combinar mais de uma.</p>
+
+                    <div id="listaPagamento" role="radiogroup" aria-label="Forma de pagamento">
+
+                        <label class="opcao" for="pgto-pix">
+                            <input type="radio" name="formaPagamento" id="pgto-pix" value="pix">
+                            <span class="opcao-titulo">
+                                <svg class="icone-pgto" viewBox="0 0 24 24"><path d="M12 2l4 4-4 4-4-4 4-4zM2 12l4-4 4 4-4 4-4-4zM14 12l4-4 4 4-4 4-4-4zM12 14l4 4-4 4-4-4 4-4z"/></svg>
+                                PIX
+                                <span class="etiqueta etiqueta-desconto">5% de desconto</span>
+                            </span>
+                            <span class="opcao-desc">Aprovação imediata. O desconto já entra no total.</span>
+                        </label>
+
+                        <label class="opcao" for="pgto-debito">
+                            <input type="radio" name="formaPagamento" id="pgto-debito" value="debito">
+                            <span class="opcao-titulo">
+                                <svg class="icone-pgto" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                                Cartão de débito
+                                <span class="etiqueta etiqueta-desconto">2% de desconto</span>
+                            </span>
+                            <span class="opcao-desc">Cobrado à vista, em uma única parcela.</span>
+                        </label>
+
+                        <label class="opcao" for="pgto-credito">
+                            <input type="radio" name="formaPagamento" id="pgto-credito" value="credito">
+                            <span class="opcao-titulo">
+                                <svg class="icone-pgto" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
+                                Cartão de crédito
+                                <span class="etiqueta etiqueta-semjuros">até 6x sem juros</span>
+                            </span>
+                            <span class="opcao-desc">Parcele em até 12x. A partir da 7ª parcela há juros.</span>
+                        </label>
+
+                    </div>
+
+                    <span class="erro" id="erro-forma" role="alert"></span>
+
+                    <!-- ----- DADOS DO CARTÃO (crédito e débito) ----- -->
+                    <div class="dados-cartao" id="dadosCartao" hidden>
+
+                        <div class="campo campo-numero">
+                            <label for="cartaoNumero">Número do cartão <span class="req">*</span></label>
+                            <input type="text" id="cartaoNumero" inputmode="numeric" maxlength="19"
+                                   autocomplete="cc-number" placeholder="0000 0000 0000 0000"
+                                   aria-required="true" aria-describedby="dica-cartaoNumero erro-cartaoNumero">
+                            <span class="bandeira" id="bandeiraCartao" hidden></span>
+                            <span class="dica" id="dica-cartaoNumero">Os 16 números impressos na frente do cartão.</span>
+                            <span class="erro" id="erro-cartaoNumero" role="alert"></span>
+                        </div>
+
+                        <div class="campo">
+                            <label for="cartaoNome">Nome impresso no cartão <span class="req">*</span></label>
+                            <input type="text" id="cartaoNome" maxlength="40" autocomplete="cc-name"
+                                   placeholder="Ex: MARIA S LIMA"
+                                   aria-required="true" aria-describedby="dica-cartaoNome erro-cartaoNome">
+                            <span class="dica" id="dica-cartaoNome">Exatamente como está gravado no cartão.</span>
+                            <span class="erro" id="erro-cartaoNome" role="alert"></span>
+                        </div>
+
+                        <div class="linha">
+                            <div class="campo">
+                                <label for="cartaoValidade">Validade <span class="req">*</span></label>
+                                <input type="text" id="cartaoValidade" inputmode="numeric" maxlength="5"
+                                       autocomplete="cc-exp" placeholder="MM/AA"
+                                       aria-required="true" aria-describedby="dica-cartaoValidade erro-cartaoValidade">
+                                <span class="dica" id="dica-cartaoValidade">Mês e ano, como 09/28.</span>
+                                <span class="erro" id="erro-cartaoValidade" role="alert"></span>
+                            </div>
+
+                            <div class="campo">
+                                <label for="cartaoCvv">Código de segurança <span class="req">*</span></label>
+                                <input type="text" id="cartaoCvv" inputmode="numeric" maxlength="3"
+                                       autocomplete="cc-csc" placeholder="000"
+                                       aria-required="true" aria-describedby="dica-cartaoCvv erro-cartaoCvv">
+                                <span class="dica" id="dica-cartaoCvv">Os 3 dígitos do verso do cartão.</span>
+                                <span class="erro" id="erro-cartaoCvv" role="alert"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ----- PARCELAMENTO (só crédito) ----- -->
+                    <div class="parcelas-box" id="parcelasBox" hidden>
+                        <div class="campo">
+                            <label for="parcelas">Em quantas parcelas? <span class="req">*</span></label>
+                            <select id="parcelas" aria-describedby="avisoJuros"></select>
+                        </div>
+                        <div class="aviso-juros" id="avisoJuros">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                            <span id="avisoJurosTexto"></span>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- ===== 3. CONFERÊNCIA DOS DADOS ===== -->
+                <fieldset class="bloco">
+                    <legend><span class="legend-num">3</span> Conferência</legend>
+                    <p class="bloco-sub">Confirme que os dados da conta e do pagamento estão coerentes.</p>
+                    <div id="conferencia"></div>
+                </fieldset>
+
+                <div class="erro-geral" id="erroGeral" role="alert" hidden></div>
+            </form>
+
+            <!-- ---------- COLUNA DO RESUMO ---------- -->
+            <aside class="resumo" aria-label="Resumo do pedido">
+                <div class="resumo-titulo">Resumo do pedido</div>
+
+                <div class="resumo-itens" id="resumoItens"></div>
+
+                <div class="resumo-linha">
+                    <span class="rotulo">Produtos</span>
+                    <span class="valor" id="vlProdutos">R$ 0,00</span>
+                </div>
+                <div class="resumo-linha desconto" id="linhaDescProduto" hidden>
+                    <span class="rotulo">Desconto dos produtos</span>
+                    <span class="valor" id="vlDescProduto">— R$ 0,00</span>
+                </div>
+                <div class="resumo-linha">
+                    <span class="rotulo">Subtotal</span>
+                    <span class="valor" id="vlSubtotal">R$ 0,00</span>
+                </div>
+                <div class="resumo-linha desconto" id="linhaDescPgto" hidden>
+                    <span class="rotulo" id="rotuloDescPgto">Desconto no pagamento</span>
+                    <span class="valor" id="vlDescPgto">— R$ 0,00</span>
+                </div>
+                <div class="resumo-linha juros" id="linhaJuros" hidden>
+                    <span class="rotulo">Juros do parcelamento</span>
+                    <span class="valor" id="vlJuros">+ R$ 0,00</span>
+                </div>
+
+                <div class="resumo-total">
+                    <span class="rotulo">Total</span>
+                    <span class="valor" id="vlTotal">R$ 0,00</span>
+                </div>
+                <div class="resumo-parcela" id="vlParcela"></div>
+
+                <div class="economia" id="boxEconomia" hidden></div>
+
+                <button type="submit" form="formCheckout" class="btn-submit" id="btnPagar">
+                    Pagar
+                </button>
+            </aside>
+
+        </div>
+    </div>
+
+    <!-- ============ ETAPA DE AUTENTICAÇÃO ============ -->
+    <section class="panel panel-sucesso" id="painelCodigo" hidden>
+        <h1 class="panel-title">Confirme o pagamento</h1>
+        <p class="panel-sub">Para sua segurança, confirme que é você quem está comprando.</p>
+
+        <div class="cobranca-aviso">
+            Valor a ser cobrado
+            <strong id="codigoValor">R$ 0,00</strong>
+            <span id="codigoForma"></span>
+        </div>
+
+        <div class="simulacao">
+            <div class="simulacao-titulo">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                Simulação
+            </div>
+            <p>
+                Num sistema real este código chegaria por e-mail ou SMS. Como este projeto
+                roda só no navegador, sem servidor, ele aparece aqui:
+            </p>
+            <div class="codigo-gerado" id="codigoGerado">------</div>
+        </div>
+
+        <form id="formCodigo" novalidate>
+            <fieldset>
+                <legend id="labelCodigo">Código de autorização</legend>
+                <div class="campo">
+                    <div class="codigo-caixas" role="group" aria-labelledby="labelCodigo">
+                        <input type="text" class="caixa-digito" id="c1" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Dígito 1">
+                        <input type="text" class="caixa-digito" id="c2" inputmode="numeric" maxlength="1" aria-label="Dígito 2">
+                        <input type="text" class="caixa-digito" id="c3" inputmode="numeric" maxlength="1" aria-label="Dígito 3">
+                        <input type="text" class="caixa-digito" id="c4" inputmode="numeric" maxlength="1" aria-label="Dígito 4">
+                        <input type="text" class="caixa-digito" id="c5" inputmode="numeric" maxlength="1" aria-label="Dígito 5">
+                        <input type="text" class="caixa-digito" id="c6" inputmode="numeric" maxlength="1" aria-label="Dígito 6">
+                    </div>
+                    <span class="erro" id="erro-codigo" role="alert"></span>
+                </div>
+
+                <div class="codigo-rodape">
+                    <span class="contador" id="contador" aria-live="polite">Expira em 05:00</span>
+                    <button type="button" class="link-inline" id="btnReenviar">Reenviar código</button>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn-submit">Autorizar pagamento</button>
+            <button type="button" class="btn-secundario" id="btnCancelarCodigo">Voltar e revisar</button>
+        </form>
+    </section>
+
+    <!-- ============ SUCESSO ============ -->
+    <section class="panel panel-sucesso" id="painelSucesso" hidden>
+        <div class="sucesso-icone">
+            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h1 class="panel-title">Pagamento aprovado</h1>
+        <p class="panel-sub" id="sucessoMsg"></p>
+
+        <div class="pedido-resumo" id="pedidoResumo"></div>
+
+        <a href="index.html" class="btn-submit">Voltar para a loja</a>
+    </section>
+
+</main>
+
+<!-- ============ MODAL DE ENDEREÇO ============ -->
+<div class="modal-overlay" id="modalOverlay"></div>
+<div class="modal" id="modalEndereco" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <div class="modal-head">
+        <span class="modal-titulo" id="modalTitulo">Novo endereço</span>
+        <button type="button" class="modal-fechar" id="modalFechar" aria-label="Fechar">
+            <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+    </div>
+
+    <form id="formEndereco" novalidate>
+        <div class="campo">
+            <label for="endRotulo">Identificação <span class="req">*</span></label>
+            <input type="text" id="endRotulo" maxlength="20" placeholder="Ex: Casa, Trabalho"
+                   aria-required="true" aria-describedby="dica-endRotulo erro-endRotulo">
+            <span class="dica" id="dica-endRotulo">Um apelido para reconhecer o endereço.</span>
+            <span class="erro" id="erro-endRotulo" role="alert"></span>
+        </div>
+
+        <div class="linha linha-cep">
+            <div class="campo">
+                <label for="endCep">CEP <span class="req">*</span></label>
+                <input type="text" id="endCep" inputmode="numeric" maxlength="9" placeholder="00000-000"
+                       aria-required="true" aria-describedby="dica-endCep erro-endCep">
+                <span class="dica" id="dica-endCep">8 dígitos.</span>
+                <span class="erro" id="erro-endCep" role="alert"></span>
+            </div>
+            <div class="campo">
+                <label for="endRua">Rua <span class="req">*</span></label>
+                <input type="text" id="endRua" maxlength="80" placeholder="Ex: Avenida Paulista"
+                       aria-required="true" aria-describedby="dica-endRua erro-endRua">
+                <span class="dica" id="dica-endRua">Nome da rua, avenida ou travessa.</span>
+                <span class="erro" id="erro-endRua" role="alert"></span>
+            </div>
+        </div>
+
+        <div class="linha">
+            <div class="campo">
+                <label for="endNumero">Número <span class="req">*</span></label>
+                <input type="text" id="endNumero" maxlength="10" placeholder="Ex: 1578"
+                       aria-required="true" aria-describedby="dica-endNumero erro-endNumero">
+                <span class="dica" id="dica-endNumero">Se não houver, escreva S/N.</span>
+                <span class="erro" id="erro-endNumero" role="alert"></span>
+            </div>
+            <div class="campo">
+                <label for="endBairro">Bairro <span class="req">*</span></label>
+                <input type="text" id="endBairro" maxlength="60" placeholder="Ex: Bela Vista"
+                       aria-required="true" aria-describedby="dica-endBairro erro-endBairro">
+                <span class="dica" id="dica-endBairro">Bairro do endereço.</span>
+                <span class="erro" id="erro-endBairro" role="alert"></span>
+            </div>
+        </div>
+
+        <div class="campo">
+            <label for="endComplemento">Complemento <span class="opc">(opcional)</span></label>
+            <input type="text" id="endComplemento" maxlength="60" placeholder="Ex: Apto 42, Bloco B"
+                   aria-describedby="dica-endComplemento erro-endComplemento">
+            <span class="dica" id="dica-endComplemento">Apartamento, bloco ou ponto de referência.</span>
+            <span class="erro" id="erro-endComplemento" role="alert"></span>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnSalvarEndereco">Salvar endereço</button>
+    </form>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="checkout_script.js"></script>
+</body>
+</html>

@@ -486,7 +486,11 @@ function alterarQuantidade(produtoId, delta) {
     const item = carrinho.find(i => i.id === produtoId);
     if (!item) return;
 
-    const produto = produtos.find(p => p.id === produtoId);
+    // Rele o catalogo: o admin pode ter mudado o estoque com a loja aberta.
+    // O produto tambem pode ter sido removido — por isso o fallback.
+    const catalogo = carregarProdutos();
+    const produto = catalogo.find(p => p.id === produtoId);
+    const estoqueMax = produto ? produto.estoque : item.quantidade;
     const novaQty = item.quantidade + delta;
 
     if (novaQty <= 0) {
@@ -494,7 +498,7 @@ function alterarQuantidade(produtoId, delta) {
         return;
     }
 
-    if (novaQty > produto.estoque) {
+    if (novaQty > estoqueMax) {
         showToast("Quantidade máxima em estoque atingida");
         return;
     }
@@ -736,6 +740,7 @@ function atualizarMenuUsuario() {
         document.getElementById("userMenuSub").textContent = "Entre ou crie seu cadastro";
         document.getElementById("linkEntrar").hidden = false;
         document.getElementById("linkCadastro").hidden = false;
+        document.getElementById("linkPedidos").hidden = true;
         document.getElementById("btnSair").hidden = true;
         return;
     }
@@ -744,6 +749,7 @@ function atualizarMenuUsuario() {
     document.getElementById("userMenuSub").textContent = conta.email;
     document.getElementById("linkEntrar").hidden = true;
     document.getElementById("linkCadastro").hidden = true;
+    document.getElementById("linkPedidos").hidden = false;
     document.getElementById("btnSair").hidden = false;
 }
 
@@ -754,9 +760,9 @@ document.getElementById("btnSair").addEventListener("click", () => {
     showToast("Você saiu da sua conta");
 });
 
-// Botão de checkout (placeholder)
+// Botão de checkout — leva para a página de pagamento
 document.getElementById("checkoutBtn").addEventListener("click", () => {
-    showToast("Funcionalidade de checkout em desenvolvimento!");
+    window.location.href = "checkout.html";
 });
 
 // ============================================================
@@ -766,4 +772,5 @@ renderPills();
 renderMarcasMenu();
 renderProdutos();
 atualizarMenuUsuario();
+renderCarrinho();
 atualizarBadge();
